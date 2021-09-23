@@ -18,6 +18,16 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '~/assets/style.css'
+  ],
+  css: [
+    '~/assets/inscript.css'
+  ],
+
+
+  // js
+  js: [
+    '~/stactic/main.js'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
