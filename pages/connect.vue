@@ -20,7 +20,7 @@
         <div class="field">
           <input type="submit" value="Login">
         </div>
-        <div class="signup-link">je suis pas pas m'embre? <NuxtLink to="/inscription">s'inscrire</NuxtLink></div>
+        <div class="signup-link">je suis pas m'embre? <NuxtLink to="/inscription">s'inscrire</NuxtLink></div>
       </form>
     </div>
 </template>

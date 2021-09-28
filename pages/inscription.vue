@@ -1,68 +1,148 @@
 <template>
-     <div class="container">
-    <div class="title">INSCRIPTION</div>
-    <div class="content">
-      <form action="#">
-        <div class="user-details">
-          <div class="input-box">
-            <span class="details">Nom</span>
-            <input type="text" placeholder="Enter your name" required>
-          </div>
-          <div class="input-box">
-            <span class="details">prenom</span>
-            <input type="text" placeholder="Enter your username" required>
-          </div>
-          <div class="input-box">
-            <span class="details">Email</span>
-            <input type="text" placeholder="Enter your email" required>
-          </div>
-          <div class="input-box">
-            <span class="details">Phone Number</span>
-            <input type="text" placeholder="Enter your number" required>
-          </div>
-          <div class="input-box">
-            <span class="details">Password</span>
-            <input type="text" placeholder="Enter your password" required>
-          </div>
-          <div class="input-box">
-            <span class="details">Confirm Password</span>
-            <input type="text" placeholder="Confirm your password" required>
-          </div>
-        </div>
-        <div class="gender-details">
-          <input type="radio" name="gender" id="dot-1">
-          <input type="radio" name="gender" id="dot-2">
-          <input type="radio" name="gender" id="dot-3">
-          <span class="gender-title">Genre</span>
-          <div class="category">
-            <label for="dot-1">
-            <span class="dot one"></span>
-            <span class="gender">Masculin</span>
-          </label>
-          <label for="dot-2">
-            <span class="dot two"></span>
-            <span class="gender">Feminin</span>
-          </label>
-          <label for="dot-3">
-            <span class="dot three"></span>
-            <span class="gender">Preferer ne rien dire</span>
-            </label>
-          </div>
-        </div>
-        <div class="button">
-          <input type="submit" value="Register">
-        </div>
-      </form>
-    </div>
+ <div>
+   <h1>INSCRIPTION</h1>
+    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+        <b-form-group id="input-group-2" label="Nom:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.name"
+          placeholder="Entrer nom"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+        <b-form-group id="input-group-2" label="Prenom:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.name"
+          placeholder="Entrer prenom"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group
+        id="input-group-1"
+        label="Address email:"
+        label-for="input-1"
+      >
+        <b-form-input
+          id="input-1"
+          v-model="form.email"
+          type="email"
+          placeholder="Entrer email"
+          required
+        ></b-form-input>
+      </b-form-group>
+      
+        <b-form-group
+        id="input-group-1"
+        label="Tel:"
+        label-for="input-1"
+        >
+        <b-form-input
+          id="input-1"
+          v-model="form.tel"
+          type="tel"
+          placeholder="Entrer tel"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      <!-- <b-form-group id="input-group-2" label="pasword:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.password"
+          placeholder="Entrer mot de passe"
+          required
+        ></b-form-input>
+      </b-form-group> -->
+
+    <b-form @submit.stop.prevent>
+    <label for="text-password">Password</label>
+    <b-form-input type="password" id="text-password" aria-describedby="password-help-block"></b-form-input>
+    <b-form-text id="password-help-block">
+      entrer un mot de passe de minimum 6 caractères.
+    </b-form-text>
+   </b-form>
+      
+
+      <!-- <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.name"
+          placeholder="Enter name"
+          required
+        ></b-form-input>
+      </b-form-group> -->
+
+      <!-- <b-form-group id="input-group-3" label="Sex:" label-for="input-3">
+        <b-form-select
+          id="input-3"
+          v-model="form.sex"
+          :options="sex"
+          required
+        ></b-form-select>
+      </b-form-group> -->
+
+      <!-- <b-form-group id="input-group-4" v-slot="{ ariaDescribedby }">
+        <b-form-checkbox-group
+          v-model="form.checked"
+          id="checkboxes-4"
+          :aria-describedby="ariaDescribedby"
+        >
+          <b-form-checkbox value="me">Check me out</b-form-checkbox>
+          <b-form-checkbox value="that">Check that out</b-form-checkbox>
+        </b-form-checkbox-group>
+      </b-form-group> -->
+       
+      <b-button type="submit" variant="primary">S'inscrire</b-button>
+       <div class="signup-link">déja m'embre? <NuxtLink to="/connect">connectez-vous</NuxtLink></div>
+      <!-- <b-button type="reset" variant="danger">déjà un compte ?  </b-button> -->
+    </b-form>
+    <!-- <b-card class="mt-3" header="Form Data Result">
+      <pre class="m-0">{{ form }}</pre>
+    </b-card> -->
   </div>
 </template>
 
 <script>
-export default {
-    
-}
+  export default {
+    data() {
+      return {
+        form: {
+          email: '',
+          nom: '',
+          prenom: '',
+          tel: '',
+          password: '',
+          sex: null,
+          checked: []
+        },
+        sex: [{ text: 'Select sex', value: null }, 'Masculin', 'Feminin', 'Ne pas specifier',],
+        show: true
+      }
+    },
+    methods: {
+      onSubmit(event) {
+        event.preventDefault()
+        alert(JSON.stringify(this.form))
+      },
+      onReset(event) {
+        event.preventDefault()
+        // Reset our form values
+        this.form.email = ''
+        this.form.name = ''
+        this.form.sex = null
+        this.form.checked = []
+        // Trick to reset/clear native browser form validation state
+        this.show = false
+        this.$nextTick(() => {
+          this.show = true
+        })
+      }
+    }
+  }
 </script>
-
 <style>
 *{
   margin: 0;
@@ -209,6 +289,4 @@ form .user-details .input-box{
     flex-direction: column;
   }
 }
-
-
 </style>
