@@ -45,9 +45,23 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
+    '@nuxtjs/axios',
+    
   ],
+    /*
+   ** Axios module configuration
+   ** See https://axios.nuxtjs.org/options
+   */
+   axios: {async asyncData({ $axios }) {
+    const ip = await $axios.$get('http://icanhazip.com')
+    return { ip }
+  }},
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+        /*
+     ** You can extend webpack config here
+     */
+     extend(config, ctx) { }
   }
 }

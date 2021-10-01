@@ -100,6 +100,7 @@
             <b-form-checkbox value="name">Name</b-form-checkbox>
             <b-form-checkbox value="age">Age</b-form-checkbox>
             <b-form-checkbox value="isActive">Active</b-form-checkbox>
+            <b-form-checkbox v-model="footClone" :aria-describedby="ariaDescribedby" inline>Foot Clone</b-form-checkbox>
           </b-form-checkbox-group>
         </b-form-group>
       </b-col>
@@ -163,6 +164,9 @@
         <b-button size="sm" @click="row.toggleDetails">
           {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
         </b-button>
+          <b-form-group label="Small:" label-cols-sm="2" label-size="sm">
+    <b-form-file id="file-small" size="sm"></b-form-file>
+  </b-form-group>
       </template>
 
       <template #row-details="row">

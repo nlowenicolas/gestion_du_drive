@@ -2,20 +2,20 @@
  <div>
    <h1>INSCRIPTION</h1>
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-        <b-form-group id="input-group-2" label="Nom:" label-for="input-2">
+        <b-form-group id="input-group-2" label="Name:" label-for="input-2">
         <b-form-input
           id="input-2"
           v-model="form.name"
-          placeholder="Entrer nom"
+          placeholder="Entrer name"
           required
         ></b-form-input>
       </b-form-group>
 
-        <b-form-group id="input-group-2" label="Prenom:" label-for="input-2">
+        <b-form-group id="input-group-2" label="firstname:" label-for="input-2">
         <b-form-input
           id="input-2"
-          v-model="form.name"
-          placeholder="Entrer prenom"
+          v-model="form.firstname"
+          placeholder="Entrer firstname"
           required
         ></b-form-input>
       </b-form-group>
@@ -110,15 +110,15 @@
     data() {
       return {
         form: {
+          name: '',
+          firstname: '',
           email: '',
-          nom: '',
-          prenom: '',
           tel: '',
           password: '',
-          sex: null,
-          checked: []
+          // sex: null,
+          // checked: []
         },
-        sex: [{ text: 'Select sex', value: null }, 'Masculin', 'Feminin', 'Ne pas specifier',],
+        // sex: [{ text: 'Select sex', value: null }, 'Masculin', 'Feminin', 'Ne pas specifier',],
         show: true
       }
     },
@@ -130,10 +130,13 @@
       onReset(event) {
         event.preventDefault()
         // Reset our form values
-        this.form.email = ''
         this.form.name = ''
-        this.form.sex = null
-        this.form.checked = []
+        this.form.firstname = ''
+        this.form.email = ''
+        this.form.tel = ''
+        this.form.password = ''
+        // this.form.sex = null
+        // this.form.checked = []
         // Trick to reset/clear native browser form validation state
         this.show = false
         this.$nextTick(() => {
