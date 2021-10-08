@@ -5,7 +5,7 @@
         <b-form-group id="input-group-2" label="Name:" label-for="input-2">
         <b-form-input
           id="input-2"
-          v-model="form.name"
+          v-model="form.nom"
           placeholder="Entrer name"
           required
         ></b-form-input>
@@ -14,7 +14,7 @@
         <b-form-group id="input-group-2" label="firstname:" label-for="input-2">
         <b-form-input
           id="input-2"
-          v-model="form.firstname"
+          v-model="form.prenom"
           placeholder="Entrer firstname"
           required
         ></b-form-input>
@@ -41,8 +41,8 @@
         >
         <b-form-input
           id="input-1"
-          v-model="form.tel"
-          type="tel"
+          v-model="form.telephone"
+          type="telephone"
           placeholder="Entrer tel"
           required
         ></b-form-input>
@@ -59,7 +59,7 @@
 
     <b-form @submit.stop.prevent>
     <label for="text-password">Password</label>
-    <b-form-input type="password" id="text-password" aria-describedby="password-help-block"></b-form-input>
+    <b-form-input type="password" v-model="form.password" id="text-password" aria-describedby="password-help-block"></b-form-input>
     <b-form-text id="password-help-block">
       entrer un mot de passe de minimum 6 caractères.
     </b-form-text>
@@ -110,10 +110,10 @@
     data() {
       return {
         form: {
-          name: '',
-          firstname: '',
+          nom: '',
+          prenom: '',
           email: '',
-          tel: '',
+          telephone: '',
           password: '',
           // sex: null,
           // checked: []
@@ -125,7 +125,30 @@
     methods: {
       onSubmit(event) {
         event.preventDefault()
-        alert(JSON.stringify(this.form))
+        /*console.log(typeof(parseInt(this.form.telephone)))
+        return*/
+        //alert(JSON.stringify(this.form))
+        
+  //const ip =  this.$axios.$get('http://192.168.100.78:8000/utilisateurs/list')
+  // return { ip }
+  this.$axios.$post('http://192.168.100.78:8000/utilisateurs/add',
+    //JSON.stringify(this.form)
+          {nom: this.form.nom,
+          prenom: this.form.prenom,
+          email: this.form.email,
+          telephone: parseInt(this.form.telephone),
+          password: this.form.password, }
+)
+.then(function (reponse) {
+    //On traite la suite une fois la réponse obtenue 
+    console.log(reponse);
+})
+.catch(function (erreur) {
+    //On traite ici les erreurs éventuellement survenues
+    console.log(erreur);
+});
+
+
       },
       onReset(event) {
         event.preventDefault()
@@ -144,6 +167,7 @@
         })
       }
     }
+    
   }
 </script>
 <style>

@@ -32,6 +32,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    // '~/plugins/axios.js'
+
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -52,10 +54,7 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-   axios: {async asyncData({ $axios }) {
-    const ip = await $axios.$get('http://icanhazip.com')
-    return { ip }
-  }},
+   axios: {},
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
@@ -63,5 +62,5 @@ export default {
      ** You can extend webpack config here
      */
      extend(config, ctx) { }
-  }
+  },
 }
