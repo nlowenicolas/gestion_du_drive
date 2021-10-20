@@ -141,11 +141,18 @@
 )
 .then(function (reponse) {
     //On traite la suite une fois la réponse obtenue 
-    console.log(reponse);
+
+ 
+    console.log(reponse[0])
+    
+    alert(reponse[0])
+    
 })
 .catch(function (erreur) {
     //On traite ici les erreurs éventuellement survenues
+
     console.log(erreur);
+    alert("probleme survenue veillée ressayer")
 });
 
 

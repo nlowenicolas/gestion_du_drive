@@ -194,6 +194,7 @@
   export default {
     data() {
       return {
+        list : [],
         items: [
           { isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
           { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
@@ -219,11 +220,13 @@
           { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
         ],
         fields: [
-          { key: 'name', label: 'Person full name', sortable: true, sortDirection: 'desc' },
-          { key: 'age', label: 'Person age', sortable: true, class: 'text-center' },
+          { key: 'name', label: 'Name', sortable: true, sortDirection: 'desc' },
+          { key: 'name.first', label: 'Firstname', sortable: true, sortDirection: 'desc' },
+          { key: 'Email', label: 'Email', sortable: true, sortDirection: 'desc' },
+          { key: 'telephone', label: 'telephone', sortable: true, class: 'text-center' },
           {
             key: 'isActive',
-            label: 'Is Active',
+            label: 'isActive',
             formatter: (value, key, item) => {
               return value ? 'Yes' : 'No'
             },
@@ -233,6 +236,7 @@
           },
           { key: 'actions', label: 'Actions' }
         ],
+        footClone: false,
         totalRows: 1,
         currentPage: 1,
         perPage: 5,
@@ -262,13 +266,33 @@
     mounted() {
       // Set the initial number of items
       this.totalRows = this.items.length
+      this.getFile()
     },
     methods: {
       info(item, index, button) {
         this.infoModal.title = `Row index: ${index}`
         this.infoModal.content = JSON.stringify(item, null, 2)
         this.$root.$emit('bv::show::modal', this.infoModal.id, button)
-      },
+    //JSON.stringify(this.form)
+          // {nom: this.form.nom,
+          // prenom: this.form.prenom,
+          // email: this.form.email,
+          // telephone: parseInt(this.form.telephone),
+          // password: this.form.password, }
+
+    
+    
+        // this.utilisateur = reponse[0];
+ },
+      getFile() {
+      // `this` will refer to the component instance
+       this.$axios.$get('http://192.168.100.78:8000/utilisateurs/list')
+      .then(function (reponse) { 
+       this.list = response
+       console.log(reponse[0]);})
+    },
+
+      
       resetInfoModal() {
         this.infoModal.title = ''
         this.infoModal.content = ''
