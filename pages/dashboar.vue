@@ -286,10 +286,10 @@
  },
       getFile() {
       // `this` will refer to the component instance
-       this.$axios.$get('http://192.168.100.78:8000/utilisateurs/list')
+       this.$axios.$get('http://192.168.100.78:8000/api/utilisateurs/list')
       .then(function (reponse) { 
-       this.list = response
-       console.log(reponse[0]);})
+       this.list = reponse
+       console.log(reponse[0])})
     },
 
       

@@ -49,6 +49,7 @@ export default {
     'bootstrap-vue/nuxt',
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
+    ['@nuxtjs/proxy', { pathRewrite: { '^/api/' : '' } }]
     
   ],
     /*
@@ -58,9 +59,11 @@ export default {
    axios: {
     proxy: true
    },
-   proxy: {
-    '/api/': { target: 'http://192.168.100.78:8000/utilisateurs/list', pathRewrite: {'^/api/': '/'}, changeOrigin: true }
-  },
+   proxy: [
+    'http://192.168.100.78:8000/api/' 
+   ],
+    //'/test/': { target: 'http://192.168.100.78:8000', pathRewrite: {'^/test/': '/'}, changeOrigin: true }
+  //},
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
