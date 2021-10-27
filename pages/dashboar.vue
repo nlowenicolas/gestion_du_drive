@@ -263,7 +263,7 @@
           })
       }
     },
-    mounted() {
+    created() {
       // Set the initial number of items
       this.totalRows = this.items.length
       this.getFile()
@@ -287,9 +287,11 @@
       getFile() {
       // `this` will refer to the component instance
        this.$axios.$get('http://192.168.100.78:8000/api/utilisateurs/list')
-      .then(function (reponse) { 
-       this.list = reponse
+      .then(reponse => { 
+       this.list = reponse[0]
        console.log(reponse[0])})
+
+       console.log(this.list)
     },
 
       
