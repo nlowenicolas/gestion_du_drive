@@ -139,7 +139,8 @@
 
     <!-- Main table element -->
     <b-table
-      :items="items"
+      
+      :items="list"
       :fields="fields"
       :current-page="currentPage"
       :per-page="perPage"
@@ -194,42 +195,79 @@
   export default {
     data() {
       return {
-        list : [],
-        items: [
-          { isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
-          { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
-          {
-            isActive: false,
-            age: 9,
-            name: { first: 'Mini', last: 'Navarro' },
-            _rowVariant: 'success'
-          },
-          { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
-          { isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' } },
-          { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
-          { isActive: true, age: 40, name: { first: 'Thor', last: 'Macdonald' } },
-          {
-            isActive: true,
-            age: 87,
-            name: { first: 'Larsen', last: 'Shaw' },
-            _cellVariants: { age: 'danger', isActive: 'warning' }
-          },
-          { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
-          { isActive: false, age: 22, name: { first: 'Genevieve', last: 'Wilson' } },
-          { isActive: true, age: 38, name: { first: 'John', last: 'Carney' } },
-          { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
-        ],
+        list : [ ],
+
+       items: [],
+               // items: [
+        //   { isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
+        //   { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
+        //   {
+        //     isActive: false,
+        //     age: 9,
+        //     name: { first: 'Mini', last: 'Navarro' },
+        //     _rowVariant: 'success'
+        //   },
+        //   { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
+        //   { isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' } },
+        //   { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
+        //   { isActive: true, age: 40, name: { first: 'Thor', last: 'Macdonald' } },
+        //   {
+        //     isActive: true,
+        //     age: 87,
+        //     name: { first: 'Larsen', last: 'Shaw' },
+        //     _cellVariants: { age: 'danger', isActive: 'warning' }
+        //   },
+        //   { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
+        //   { isActive: false, age: 22, name: { first: 'Genevieve', last: 'Wilson' } },
+        //   { isActive: true, age: 38, name: { first: 'John', last: 'Carney' } },
+        //   { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
+        //   ],
+
+      // items: [
+      //    { name: { first: 'ni', last: 'co' , }, email: {email: "n@gmail.com"}, telephone: "68888",   },
+      //    { name: { first: '', last: '',  } },
+      //    {
+      //       // isActive: false,
+      //       //  age: 9,
+      //        name: { first: 'sa', last: 'ko' },
+      //        email: {email: "n@gmail.com"} ,
+      //        telephone: "67777" ,
+      //        _rowVariant: 'danger'
+      //      },
+         
+        
+      //     ],
+        // items: [
+        //   { isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
+        //   { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
+        //   {
+        //     isActive: false,
+        //     age: 9,
+        //     name: { first: 'Mini', last: 'Navarro' },
+        //     _rowVariant: 'success'
+        //   },
+        //   { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
+        //   { isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' } },
+        //   { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
+        //   { isActive: true, age: 40, name: { first: 'Thor', last: 'Macdonald' } },
+        //   {
+        //     isActive: true,
+        //     age: 87,
+        //     name: { first: 'Larsen', last: 'Shaw' },
+        //     _cellVariants: { age: 'danger', isActive: 'warning' }
+        //   },
+        //   { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
+        //   { isActive: false, age: 22, name: { first: 'Genevieve', last: 'Wilson' } },
+        //   { isActive: true, age: 38, name: { first: 'John', last: 'Carney' } },
+        //   { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
+        // ],
         fields: [
-          { key: 'name', label: 'Name', sortable: true, sortDirection: 'desc' },
-          { key: 'name.first', label: 'Firstname', sortable: true, sortDirection: 'desc' },
+          { key: 'Nom', label: 'Nom', sortable: true, sortDirection: 'desc' },
+          { key: 'Prenom', label: 'Prenom', sortable: true, sortDirection: 'desc' },
           { key: 'Email', label: 'Email', sortable: true, sortDirection: 'desc' },
-          { key: 'telephone', label: 'telephone', sortable: true, class: 'text-center' },
+          { key: 'Telephone', label: 'Telephone', sortable: true, sortDirection: 'desc' },
           {
-            key: 'isActive',
-            label: 'isActive',
-            formatter: (value, key, item) => {
-              return value ? 'Yes' : 'No'
-            },
+           
             sortable: true,
             sortByFormatted: true,
             filterByFormatted: true
@@ -265,7 +303,7 @@
     },
     created() {
       // Set the initial number of items
-      this.totalRows = this.items.length
+      this.totalRows = this.list.length
       this.getFile()
     },
     methods: {
@@ -287,10 +325,13 @@
       getFile() {
       // `this` will refer to the component instance
        this.$axios.$get('http://192.168.100.78:8000/api/utilisateurs/list')
-      .then(reponse => { 
-       this.list = reponse[0]
+      .then(reponse => {
+       console.log('reponse') 
+       console.log(reponse)
+       this.list = reponse
        console.log(reponse[0])})
 
+       console.log('popo')
        console.log(this.list)
     },
 
@@ -301,7 +342,7 @@
       },
       onFiltered(filteredItems) {
         // Trigger pagination to update the number of buttons/pages due to filtering
-        this.totalRows = filteredItems.length
+        this.totalRows = filteredList.length
         this.currentPage = 1
       }
     }
