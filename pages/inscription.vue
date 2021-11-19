@@ -42,7 +42,7 @@
         <b-form-input
           id="input-1"
           v-model="form.telephone"
-          type="telephone"
+          type="text"
           placeholder="Entrer tel"
           required
         ></b-form-input>
@@ -95,7 +95,9 @@
         </b-form-checkbox-group>
       </b-form-group> -->
        
-      <b-button type="submit" variant="primary">S'inscrire</b-button>
+      <b-button type="submit" variant="primary">
+  <b-spinner small v-show="spinner" label="Small Spinner"></b-spinner>
+   S'inscrire</b-button>
        <div class="signup-link">déja m'embre? <NuxtLink to="/connect">connectez-vous</NuxtLink></div>
       <!-- <b-button type="reset" variant="danger">déjà un compte ?  </b-button> -->
     </b-form>
@@ -109,6 +111,7 @@
   export default {
     data() {
       return {
+        spinner: false,
         form: {
           nom: '',
           prenom: '',
@@ -125,13 +128,14 @@
     methods: {
       onSubmit(event) {
         event.preventDefault()
+        this.spinner=true
         /*console.log(typeof(parseInt(this.form.telephone)))
         return*/
         //alert(JSON.stringify(this.form))
         
   //const ip =  this.$axios.$get('http://192.168.100.78:8000/utilisateurs/list')
   // return { ip }
-  this.$axios.$post('http://192.168.100.78:8000/utilisateurs/add',
+  this.$axios.$post('http://192.168.100.78:8000/api/utilisateurs/add',
     //JSON.stringify(this.form)
           {nom: this.form.nom,
           prenom: this.form.prenom,
@@ -139,20 +143,22 @@
           telephone: parseInt(this.form.telephone),
           password: this.form.password, }
 )
-.then(function (reponse) {
+.then(reponse => {
     //On traite la suite une fois la réponse obtenue 
 
  
-    console.log(reponse[0])
+    console.log(reponse.message)
+    this.spinner= false
     
-    alert(reponse[0])
+    // alert(reponse[0])
     
 })
-.catch(function (erreur) {
+.catch(erreur => {
     //On traite ici les erreurs éventuellement survenues
 
     console.log(erreur);
-    alert("probleme survenue veillée ressayer")
+    alert("Un problème survenue veillée ressayer")
+    this.spinner= false
 });
 
 

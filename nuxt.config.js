@@ -18,10 +18,10 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '~/assets/style.css'
+    //'~/assets/style.css'
   ],
   css: [
-    '~/assets/inscript.css'
+    //'~/assets/inscript.css'
   ],
 
 
@@ -48,10 +48,63 @@ export default {
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
     '@nuxtjs/axios',
+    '@nuxtjs/auth-next',
     '@nuxtjs/proxy',
     ['@nuxtjs/proxy', { pathRewrite: { '^/api/' : '' } }]
     
   ],
+
+  auth: {
+    redirect: {
+      login: "/login",
+      logout: "/login",
+    },
+    strategies: {
+      local: false,
+      cookie: {
+        token: {
+          property: "data.access_token",
+          required: true,
+          type: "Bearer",
+        },
+        user: {
+          property: "data",
+        },
+        endpoints: {
+          login: {
+            url: "v1/auth/login",
+            method: "post",
+          },
+          logout: { url: "/v1/auth/logout", method: "delete" },
+          user: { url: "/v1/settings", method: "get" },
+        },
+      },
+    },
+  },
+  // auth: {
+  //   strategies: {
+      
+  //     local: {
+  //       endpoints: {
+  //         login: {
+  //           url: '/auth/login',
+  //           method: 'post',
+  //           propertyName: false
+  //         },
+  //         logout: { 
+  //           logout: false, //nous n'avons pas de point de terminaison pour notre déconnexion dans notre API et nous supprimons simplement le jeton du stockage local
+  //         },
+  //         user: { 
+  //           url: '/auth/profile', 
+  //           method: 'get', 
+  //           propertyName: false 
+  //         }
+  //       },
+  //       tokenRequired: false,
+  //       tokenType: false
+  //     }
+  //   }
+  // },
     /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options

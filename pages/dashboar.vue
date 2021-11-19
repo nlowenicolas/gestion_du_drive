@@ -12,6 +12,30 @@
           class="mb-0"
           v-slot="{ ariaDescribedby }"
         >
+
+         <b-form-checkbox
+          v-model="small" 
+          :aria-describedby="ariaDescribedby" 
+          inline>Small</b-form-checkbox>
+
+
+        
+
+        <b-form-group
+          label="Selection mode:"
+          label-for="table-select-mode-select"
+          label-cols-md="4"
+        >
+          <b-form-select
+            id="table-select-mode-select"
+            v-model="selectMode"
+            :options="modes"
+            class="mb-3"
+      >
+      </b-form-select>
+    </b-form-group>
+
+
           <b-input-group size="sm">
             <b-form-select
               id="sort-by-select"
@@ -136,12 +160,16 @@
         ></b-pagination>
       </b-col>
     </b-row>
+     <button @click='addTableRow()' >Add New Row</button>
+    <!-- <b-button class="add-button" variant="success" @click="addRowHandler">Add Row</b-button> -->
 
     <!-- Main table element -->
     <b-table
       
       :items="list"
       :fields="fields"
+      :select-mode="selectMode"
+      :small="small"
       :current-page="currentPage"
       :per-page="perPage"
       :filter="filter"
@@ -149,11 +177,23 @@
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
       :sort-direction="sortDirection"
-      stacked="md"
+      selectable
+      stacked="sm"
       show-empty
-      small
+      class="b-table"
+      fixed
       @filtered="onFiltered"
     >
+     <template v-for="(field, index) in fields" #[`cell(${field.key})`]="row">
+                <b-form-datepicker v-if="field.type === 'date' && list[row.index].isEdit" :key="index" :type="field.type" :value="list[row.index][field.key]" @input="(value) => inputHandler(value, row.index, field.key)"></b-form-datepicker>
+                <b-form-select v-else-if="field.type === 'select' && list[row.index].isEdit" :key="index" :value="list[row.index][field.key]" @input="(value) => inputHandler(value, row.index, field.key)" :options="field.options"></b-form-select>
+                <b-button :key="index" v-else-if="field.type === 'edit'" @click="editRowHandler(data)">
+                <span v-if="!list[row.index].isEdit">Edit</span>
+                <span v-else>Done</span>
+                </b-button>
+                <b-form-input v-else-if="field.type && list[Row.index].isEdit" :key="index" :type="field.type" :value="list[row.index][field.key]" @input="(value) => inputHandler(value, row.index, field.key)"></b-form-input>
+                <span :key="index" v-else>{{row.value}}</span>
+      </template>
       <template #cell(name)="row">
         {{ row.value.first }} {{ row.value.last }}
       </template>
@@ -195,6 +235,8 @@
   export default {
     data() {
       return {
+    //         tableRows:['Table Row 1', 'Table Row 2'],
+    // counter:2,
         list : [ ],
 
        items: [],
@@ -274,6 +316,8 @@
           },
           { key: 'actions', label: 'Actions' }
         ],
+        isEdit: false,
+        small: false,
         footClone: false,
         totalRows: 1,
         currentPage: 1,
@@ -322,6 +366,24 @@
     
         // this.utilisateur = reponse[0];
  },
+     addTableRow: function () { 
+      this.counter++;
+      this.tableRows.push("Table Row "+this.counter);
+      
+   },
+      // editRowHandler(data) {
+      //   this.list[row.index].isEdit = !this.list[row.index].isEdit;
+      // },
+      // inputHandler(value, index, key) {
+      //   this.list[index][key] = value;
+      //   this.$emit('input', this.list);
+      // },
+      // addRowHandler() {
+      //   const newRow = this.fields.reduce((a, c) => ({...a, [c.key]: null}) ,{})
+      //   newRow.isEdit = true;
+      //   this.list.unshift(newRow);
+      //   this.$emit('input', this.list);
+      // },
       getFile() {
       // `this` will refer to the component instance
        this.$axios.$get('http://192.168.100.78:8000/api/utilisateurs/list')
@@ -348,3 +410,9 @@
     }
   }
 </script>
+
+<style>
+    .add-button {
+        margin-bottom: 10px;
+    }
+</style>
