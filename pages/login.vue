@@ -18,7 +18,7 @@
           <div class="pass-link"><a href="#">Forgot password?</a></div>
         </div>
         <div class="field">
-          <input type="submit" value="Login">
+          <input class=" button-submit" @click="handlelogin()" value="Login">
            <b-spinner small v-show="spinner" label="Small Spinner"></b-spinner>
         </div>
         <div class="signup-link">je suis pas m'embre? <NuxtLink to="/inscription">s'inscrire</NuxtLink></div>
@@ -33,20 +33,20 @@
         showPassword: true,
         spinner: false,
         email: '',
-        password: '',
-        handlelogin 
+        password: '', 
         //error: null
       }
   },
 
   methods: {
        handlelogin() {
-         alert("mama")
+        
+        //  alert("mama")
        this.spinner=true
-       this.$auth.strategy.token.get()
+      //  this.$auth.strategy.token.get()
        this.$axios.$post('http://192.168.100.78:8000/api/login',{
        //this.$store.dispatch("user/login", { 
-       username: this.username,
+       email: this.email,
        password: this.password,
       })
       .then(reponse => {
@@ -182,7 +182,8 @@ form .content label{
 form .content .pass-link{
   color: "";
 }
-form .field input[type="submit"]{
+/*form .field input[type="submit"]{*/
+.button-submit {
   color: #fff;
   border: none;
   padding-left: 0;
@@ -193,7 +194,8 @@ form .field input[type="submit"]{
   background: linear-gradient(-135deg, #c850c0, #4158d0);
   transition: all 0.3s ease;
 }
-form .field input[type="submit"]:active{
+/*form .field input[type="submit"]*/ 
+.button-submit:active{
   transform: scale(0.95);
 }
 form .signup-link{
