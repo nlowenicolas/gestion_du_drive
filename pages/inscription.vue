@@ -98,7 +98,7 @@
       <b-button type="submit" variant="primary">
   <b-spinner small v-show="spinner" label="Small Spinner"></b-spinner>
    S'inscrire</b-button>
-       <div class="signup-link">déja m'embre? <NuxtLink to="/connect">connectez-vous</NuxtLink></div>
+       <div class="signup-link">déja m'embre? <NuxtLink to="/login">connectez-vous</NuxtLink></div>
       <!-- <b-button type="reset" variant="danger">déjà un compte ?  </b-button> -->
     </b-form>
     <!-- <b-card class="mt-3" header="Form Data Result">

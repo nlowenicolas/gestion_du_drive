@@ -1,8 +1,83 @@
 <template>
-  <div>
-    <nuxt />
-  </div>
+     <div class="wrapper">
+      <div class="title">CONNEXION</div>
+      <form action="#">
+        <div class="field">
+          <input type="text" required>
+          <label>Email Address</label>
+        </div>
+        <div class="field">
+          <input type="password" required>
+          <label>Password</label>
+        </div>
+        <div class="content">
+          <div class="checkbox">
+            <input type="checkbox" id="remember-me">
+            <label for="remember-me">Remember me</label>
+          </div>
+          <div class="pass-link"><a href="#">Forgot password?</a></div>
+        </div>
+        <div class="field">
+          <input type="submit" value="Login">
+           <b-spinner small v-show="spinner" label="Small Spinner"></b-spinner>
+        </div>
+        <div class="signup-link">je suis pas m'embre? <NuxtLink to="/inscription">s'inscrire</NuxtLink></div>
+      </form>
+    </div>
 </template>
+
+<script>
+  export default {
+     data() {
+    return {
+        showPassword: true,
+        spinner: false,
+        email: '',
+        password: '',
+        handlelogin 
+        //error: null
+      }
+  },
+
+  methods: {
+       handlelogin() {
+         alert("mama")
+       this.spinner=true
+       this.$auth.strategy.token.get()
+       this.$axios.$post('http://192.168.100.78:8000/api/login',{
+       //this.$store.dispatch("user/login", { 
+       username: this.username,
+       password: this.password,
+      })
+      .then(reponse => {
+    //On traite la suite une fois la réponse obtenue 
+
+ 
+       console.log(reponse.message)
+       this.spinner= false
+    
+    // alert(reponse[0])
+    
+      })
+       .catch(erreur => {
+    //On traite ici les erreurs éventuellement survenues
+
+       console.log(erreur);
+       alert("Un problème survenue veillée ressayer")
+       this.spinner= false
+      })
+    }
+  },
+  computed: {
+       error() {
+       return this.$store.state.error
+    }
+  }
+ 
+}
+    
+
+</script>
 
 <style>
 *{

@@ -58,6 +58,7 @@ export default {
     redirect: {
       login: "/login",
       logout: "/login",
+      home: '/',
     },
     strategies: {
       local: false,
@@ -72,11 +73,11 @@ export default {
         },
         endpoints: {
           login: {
-            url: "v1/auth/login",
+            url: "api/auth/login",
             method: "post",
           },
-          logout: { url: "/v1/auth/logout", method: "delete" },
-          user: { url: "/v1/settings", method: "get" },
+          logout: { url: "/api/auth/logout", method: "delete" },
+          user: { url: "/api/settings", method: "get" },
         },
       },
     },
